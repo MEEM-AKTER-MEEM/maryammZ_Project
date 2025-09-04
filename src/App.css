@@ -1,0 +1,284 @@
+/* ============ THEME & BASE ============ */
+:root{
+  --bg:#0b0f17; --card:#0f1420; --text:#e8ecf5; --muted:#a7b0c4;
+  --brand-500:#ff7ad9; --brand-600:#a855f7; --brand-soft:#ffd8f3;
+  --sec-500:#8b5cf6; --sec-600:#6d28d9;
+  --radius:18px;
+  /* 🔧 গ্লাস ব্লার কন্ট্রোল */
+  --card-blur: 10px;
+  --container-pad: clamp(18px, 4vw, 36px);
+  --container-max: 1300px; /* default – সাইট-ওয়াইড */
+}
+
+/* সমান সেকশন স্পেসিং */
+.section, .hero { padding-block: clamp(28px, 6vw, 64px); }
+
+/* ===== Unified “Glass” Containers ===== */
+.glass{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--card-blur));
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  padding: var(--container-pad);
+
+}
+
+/* সর্বত্র একই সাইড গাটার (1st & 2nd container match) */
+.wrap-wide{
+  max-width: min(var(--container-max), 92vw);
+  margin-inline: auto;
+  padding-inline: clamp(14px, 4vw, 28px);
+}
+
+/* narrow stack container (কার্ড সেন্টার) */
+.centered-stack{ max-width:min(780px, 96vw); margin-inline:auto; }
+
+/* Card styles */
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding: var(--container-pad);
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
+  backdrop-filter: blur(var(--card-blur));
+
+}
+
+/* ফাঁকা কার্ড/ব্ল্যাঙ্ক কন্টেইনার লুকাও */
+.card:empty, .two-col > :empty{ display:none }
+
+/* footer small + glass */
+.footer{
+  border-top:1px solid rgba(255,255,255,.06);
+  color:var(--muted);
+  padding-block:14px 24px;
+  text-align:center;
+  backdrop-filter: blur(var(--card-blur));
+}
+
+/* ===== Animated Aurora Background ===== */
+body::before{
+  content:"";
+  position:fixed; inset:-20% -10%;
+  z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(40% 30% at 10% 20%, rgba(168,85,247,.22), transparent 60%),
+    radial-gradient(30% 25% at 80% 10%, rgba(255,122,217,.18), transparent 60%),
+    radial-gradient(35% 30% at 70% 80%, rgba(56,189,248,.16), transparent 60%);
+  filter: blur(40px) saturate(120%);
+  animation: auroraMove 14s ease-in-out infinite alternate;
+}
+@keyframes auroraMove{
+  0%{transform:translate3d(0,0,0) rotate(0) scale(1)}
+  50%{transform:translate3d(-3%,2%,0) rotate(8deg) scale(1.05)}
+  100%{transform:translate3d(4%,-3%,0) rotate(-6deg) scale(1.02)}
+}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:12px 18px;border-radius:14px;border:1px solid transparent;
+  font-weight:800;letter-spacing:.2px;color:#fff;cursor:pointer;
+  transition:transform .15s,filter .2s,box-shadow .2s,background-color .2s,border-color .2s;
+  box-shadow:0 8px 22px rgba(0,0,0,.25)
+}
+.btn--lg{padding:14px 20px;border-radius:16px;font-size:16px}
+.btn--primary{background:linear-gradient(135deg,var(--brand-500),var(--brand-600));box-shadow:0 10px 24px rgba(168,85,247,.35)}
+.btn--secondary{background:linear-gradient(135deg,var(--sec-500),var(--sec-600));box-shadow:0 10px 24px rgba(139,92,246,.30)}
+.btn--outline,.btn--ghost{background:transparent;border:none;color:#e8ecf5}
+.btn--outline:hover,.btn--ghost:hover{
+  background:linear-gradient(135deg,var(--sec-500),var(--sec-600));color:#fff;
+  box-shadow:0 10px 24px rgba(139,92,246,.30);transform:translateY(-2px);
+}
+.btn:hover{transform:translateY(-2px)}
+@media(max-width:768px){.btn--lg{width:100%}}
+
+/* ===== Header ===== */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.70);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;min-width:0}
+.brand__emojiWrap{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:radial-gradient(60% 60% at 30% 30%,var(--brand-soft),transparent 70%);border:1px solid rgba(255,255,255,.18);box-shadow:0 6px 16px rgba(255,122,217,.25)}
+.brand__emoji{font-size:20px;filter:drop-shadow(0 0 6px rgba(255,255,255,.9))}
+.nav-links{display:flex;gap:12px;align-items:center}
+.hamburger{display:none;width:30px;height:24px;border:0;background:transparent;padding:0;cursor:pointer}
+.hamburger span{display:block;height:3px;width:100%;background:#fff;border-radius:2px;transition:transform .3s,opacity .3s}
+.hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,6px)}
+.hamburger.is-open span:nth-child(2){opacity:0}
+.hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+.hide-on-mobile{display:flex}.show-on-mobile{display:none}
+@media(max-width:768px){.hide-on-mobile{display:none}.show-on-mobile{display:flex}}
+.mobile-menu{display:none;background:rgba(15,20,32,.96);border-bottom:1px solid rgba(255,255,255,.08)}
+.mobile-menu.open{display:block}
+.mobile-menu__inner{display:grid;gap:12px;padding-block:12px}
+
+/* ===== Hero ===== */
+.hero{
+  padding-block:clamp(24px,6vw,64px);
+  --container-max: 1180px; 
+}
+
+/* Hero container-এর glass যাতে Upload container-এর মতোই গ্যাপ নেয় */
+.hero .glass {
+  padding-inline: clamp(14px, 4vw, 28px); /* ✅ Upload-এর মতো side gap */
+}
+
+
+.hero-grid{
+  display:grid;gap:clamp(18px,3vw,36px);align-items:start;
+  grid-template-columns:1.2fr .8fr;
+}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;font-weight:700;font-size:12px;background:#151b2a;color:#b9c3dc;border:1px solid #25304a}
+.headline{margin:12px 0 8px;font-weight:900;line-height:1.15;font-size:clamp(28px,6vw,56px)}
+.sub{color:var(--muted);font-size:clamp(14px,1.6vw,18px);max-width:62ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px; margin-bottom: 10px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+
+/* === HERO FEATURE CARDS — equal height + transparent === */
+:root{
+  /* সব কার্ডের এক উচ্চতা (চাইলে 140–170px টিউন করো) */
+  --feature-card-h: 150px;
+}
+
+.hero .feature-grid{
+  align-items: stretch;                 /* সব আইটেম সমান height নেবে */
+}
+
+.hero .feature-grid .card{
+  height: var(--feature-card-h);        /* ✅ একদম same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;              /* কনটেন্ট মাঝামাঝি */
+  gap: 6px;
+  padding: 12px 16px;
+
+  /* ✅ transparent look (glass off) */
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.hero .feature-grid .card h3{ margin: 0 0 6px; line-height: 1.2; }
+.hero .feature-grid .card p{  margin: 0; }
+
+/* মোবাইলে র‍্যাপ হলে—উচ্চতা কন্টেন্ট অনুযায়ী */
+@media (max-width: 992px){
+  .hero .feature-grid .card{ height: auto; }
+}
+
+
+
+.card h3{margin:0 0 6px;font-size:clamp(16px,1.6vw,18px)} .card p{margin:0;color:var(--muted);font-size:14px}
+@media(max-width:992px){
+  .hero-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+}
+
+/* ===== Upload Section ===== */
+.form{display:grid;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Meter */
+.meter{position:relative;margin-top:6px;height:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px}
+.meter__bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand-500),var(--brand-600))}
+.meter__text{display:block;padding-top:8px;color:var(--muted);font-size:12px}
+
+/* File list */
+.filelist{display:grid;gap:10px}
+.file{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:12px;padding:10px 12px;min-width:0;backdrop-filter:blur(var(--card-blur))}
+.file__left{display:flex;align-items:center;gap:12px;min-width:0}
+.file__thumb{width:42px;height:42px;border-radius:8px;object-fit:cover;background:rgba(255,255,255,.06);flex:0 0 auto}
+.file__thumb.pdf{display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#fff;background:#ef4444}
+.file__info{min-width:0}
+.file__name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 6px)}
+.file__meta{color:var(--muted);font-size:13px}
+.file__remove{background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 10px;border-radius:10px;cursor:pointer}
+.file__remove:hover{background:rgba(255,255,255,.08)}
+
+.errors{background:rgba(255,0,72,.12);border:1px solid rgba(255,0,72,.35);padding:12px;border-radius:12px}
+
+
+ /* ===== Two-column (Why) ===== */
+.two-col{ display:grid; gap:18px; grid-template-columns:1.05fr .95fr; }
+
+.media{
+  width:100%;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(var(--card-blur));
+}
+
+/* ✅ এক কলাম হলে সেন্টার + ছোট প্রস্থ */
+.two-col:has(> :last-child:empty),
+.two-col:has(> :only-child){
+  grid-template-columns: 1fr;     /* single column */
+  justify-items: center;          /* center items */
+}
+
+.two-col:has(> :last-child:empty) > .card,
+.two-col:has(> :only-child) > .card{
+  width: min(760px, 100%);
+  margin-inline: auto;
+}
+
+/* আগের মতোই থাকবে */
+@media (max-width: 900px){
+  .two-col{ grid-template-columns: 1fr; }
+}
+
+
+/* যদি ডান দিকের কলাম খালি থাকে → এক কলাম করে দাও */
+.two-col:has(> :last-child:empty){ grid-template-columns:1fr; }
+@media(max-width:900px){ .two-col{grid-template-columns:1fr} }
+
+/* ---------- Modal ---------- */
+.modal{ position:fixed; inset:0; z-index:100; display:grid; place-items:center; background:rgba(0,0,0,.55); padding:16px }
+.modal__dialog{ width:min(540px,100%); background:var(--card); border:1px solid rgba(255,255,255,.10); border-radius:20px; padding:22px; box-shadow:0 20px 60px rgba(0,0,0,.45); animation:popIn .28s ease-out both; backdrop-filter:blur(var(--card-blur)) }
+.modal__title{ margin:0 0 8px; font-size:clamp(26px,6vw,40px); font-weight:900; text-align:center; color:#fff; text-shadow:0 2px 12px rgba(255,122,217,.55),0 0 24px rgba(168,85,247,.45); animation:thankPulse 1.4s ease-in-out infinite }
+.modal__text{ color:var(--muted); text-align:center; margin:0 0 16px }
+.modal__actions{ display:grid; gap:10px }
+@media (min-width:680px){ .modal__actions{ grid-template-columns:1fr 1fr } }
+
+@keyframes popIn{ from{ transform:scale(.94); opacity:0 } to{ transform:scale(1); opacity:1 } }
+@keyframes thankPulse{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.04) } }
+
+/* Misc */
+.drop input{ display:none !important; }
+
+body::before { z-index: -2; }
+
+/* ===== Consent Checkbox Styling ===== */
+.consent {
+  display: flex;
+  align-items: flex-start;     /* ✅ টেক্সট checkbox এর উপরের লাইনের সাথে align হবে */
+  gap: 8px;                    /* checkbox আর টেক্সটের মধ্যে ফাঁক */
+  font-size: 14px;
+  color: var(--muted);         /* ✅ হালকা ধূসর রঙ */
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+/* Checkbox Customization */
+.consent input[type="checkbox"] {
+  accent-color: #9370DB; 
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;       
+}
+
+
+/* ===== Upload Title Style ===== */
+
+.upload-title {
+  font-size: clamp(18px, 2.6vw, 24px); /* আরও ছোট */
+  font-weight: 900;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: center;     /* মাঝখানে */
+  white-space: nowrap;    /* ভাঙবে না */
+  overflow: hidden;       /* বাইরে যাবে না */
+}

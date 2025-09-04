@@ -1,0 +1,31 @@
+
+@import "tailwindcss";
+
+/* Tailored resets & small globals */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;700;900&display=swap');
+
+:root { scroll-behavior:smooth }
+::selection{background:rgba(108,92,231,.35);color:#fff}
+*{box-sizing:border-box}
+img{max-width:100%;display:block}
+h1,h2,h3{letter-spacing:.2px}
+
+
+body {
+  margin: 0;
+  background: #0b0f17; /* dark night sky */
+  color: var(--text);
+  font-family: 'Noto Sans Bengali', sans-serif;
+
+}
+
+
+
+/* Aurora background কে আরও পিছনে পাঠাতে */
+body::before { z-index: -2; }
+
+/* Root content সবসময় উপরে থাকবে */
+#root {
+  position: relative;
+  z-index: 2;
+}
